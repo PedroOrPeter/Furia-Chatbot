@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Main from "./components/Main";
 import Video from "./components/Video";
 import Estatisticas from "./components/estatisticas";
+import Doc from "./components/Doc";
 import { useState } from "react";
 
 export default function App() {
@@ -36,36 +37,16 @@ export default function App() {
 
       {/* Video */}
       <section id="video" className="bg-black py-16 px-4 text-center text-white relative overflow-hidden">
-      <div
+        <div
           className="absolute inset-0 opacity-30 bg-center bg-no-repeat bg-contain z-0"
           style={{ backgroundImage: 'url(../furia_logo.png)' }}
-      />
-      <Video />
+        />
+        <Video />
       </section>
 
       {/* Documentação */}
       <section id="docs" className="bg-zinc-900 py-16 px-4 text-center">
-        <h3 className="text-2xl font-bold mb-2 text-white">Documentação</h3>
-        <p className="text-gray-300">Link para o README.md e documentação do projeto.</p>
-
-        <div className="mt-4 flex justify-center">
-          <iframe
-            src="/doc/documentacaoChatbot.pdf"
-            className="w-80 h-80 border-2 border-gray-700"
-            title="Documentação PDF"
-          />
-        </div>
-
-        <div className="mt-6 flex justify-center">
-          <a
-            href="https://github.com/PedroOrPeter/Furia-Chatbot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-gray-800 text-white py-2 px-6 rounded-lg hover:bg-gray-700 transition-colors duration-300"
-          >
-            README
-          </a>
-        </div>
+        <Doc />
       </section>
 
       {/* Footer */}
