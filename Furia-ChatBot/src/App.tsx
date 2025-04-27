@@ -1,6 +1,5 @@
 import ChatBot from "./components/ChatBot";
 import TeamLineup from "./components/TeamLineUp";
-import FormContato from "./components/FormContato";
 import Sobre from "./components/Sobre";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -36,18 +35,22 @@ export default function App() {
 
 
       {/* Video */}
-      <section id="video" className="bg-zinc-900 py-16 px-4 text-center text-white">
-        <Video />
+      <section id="video" className="bg-black py-16 px-4 text-center text-white relative overflow-hidden">
+      <div
+          className="absolute inset-0 opacity-30 bg-center bg-no-repeat bg-contain z-0"
+          style={{ backgroundImage: 'url(../furia_logo.png)' }}
+      />
+      <Video />
       </section>
 
       {/* Contato */}
-      <section id="contato" className="py-16 px-4 text-center bg-black relative overflow-hidden">
+      {/* <section id="contato" className="py-16 px-4 text-center bg-black relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-30 bg-center bg-no-repeat bg-contain z-0"
           style={{ backgroundImage: 'url(../furia_logo.png)' }}
         />
         <FormContato />
-      </section>
+      </section> */}
 
       {/* Documentação */}
       <section id="docs" className="bg-zinc-900 py-16 px-4 text-center">

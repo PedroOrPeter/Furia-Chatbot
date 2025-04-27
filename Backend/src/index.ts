@@ -9,15 +9,10 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const API_KEY = process.env.GEMINI_API_KEY;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Configuração do Mailjet com a API Key e Secret Key
-const mj = mailjet.apiConnect(process.env.MAILJET_API_KEY as string, process.env.MAILJET_SECRET_KEY as string);
-
-// Simulação de estatísticas manualmente
 const furiaStats = {
   victories: 25,
   defeats: 5,
@@ -66,38 +61,6 @@ const furiaStats = {
     roundsWinRate: 52
   },
 };
-
-app.post("/contato", async (req: express.Request, res: express.Response): Promise<void> => {
-  const { name, email, message } = req.body;
-
-  // Verificação simples de campos obrigatórios
-  if (!name || !email || !message) {
-    res.status(400).json({ error: "Todos os campos são obrigatórios." });
-    return;
-  }
-
-  console.log(`Nome: ${name}, Email: ${email}, Mensagem: ${message}`);
-
-  // Configuração do e-mail a ser enviado via Mailjet
-  const mailOptions = {
-    FromEmail: process.env.MAILJET_FROM_EMAIL,
-    FromName: 'Seu Nome ou Empresa',
-    Recipients: [{ Email: process.env.RECIPIENT_EMAIL }],
-    Subject: `Mensagem de ${name}`,
-    TextPart: `Você recebeu uma mensagem de ${name} (${email}):\n\n${message}`,
-    HTMLPart: `<h3>Mensagem de ${name}</h3><p>${message}</p><p>De: ${email}</p>`,
-  };
-
-  try {
-    // Envio do e-mail usando a API do Mailjet
-    const response = await mj.post('send', { 'version': 'v3.1' }).request({ "Messages": [mailOptions] });
-    console.log('E-mail enviado com sucesso!', response.body);
-    res.json({ status: "Mensagem recebida com sucesso!" });
-  } catch (error) {
-    console.error("Erro ao enviar o e-mail:", error);
-    res.status(500).json({ error: "Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde." });
-  }
-});
 
 app.get("/stats", (req: Request, res: Response) => {
   res.json(furiaStats);
