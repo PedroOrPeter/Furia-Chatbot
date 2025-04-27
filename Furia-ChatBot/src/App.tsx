@@ -45,20 +45,25 @@ export default function App() {
 
       {/* Documentação */}
       <section id="docs" className="bg-zinc-900 py-16 px-4 text-center">
-        <h3 className="text-2xl font-bold mb-2">Documentação</h3>
-        <p>Link para o README.md ou documentação do projeto.</p>
-        <div className="mt-4">
+        <h3 className="text-2xl font-bold mb-2 text-white">Documentação</h3>
+        <p className="text-gray-300">Link para o README.md e documentação do projeto.</p>
+
+        <div className="mt-4 flex justify-center">
           <iframe
-            src="/path/to/documentation.pdf"
-            className="w-full h-96 border-2 border-gray-700"
+            src="/doc/documentacaoChatbot.pdf"
+            className="w-80 h-80 border-2 border-gray-700"
             title="Documentação PDF"
           />
+        </div>
+
+        <div className="mt-6 flex justify-center">
           <a
-            href="/path/to/documentation.pdf"
-            download="documentacao.pdf"
-            className="mt-4 inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+            href="https://github.com/PedroOrPeter/Furia-Chatbot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-gray-800 text-white py-2 px-6 rounded-lg hover:bg-gray-700 transition-colors duration-300"
           >
-            Baixar PDF
+            README
           </a>
         </div>
       </section>

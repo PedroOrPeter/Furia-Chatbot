@@ -7,7 +7,7 @@ const Footer = () => {
           Projeto desenvolvido para o desafio técnico da FURIA Tech.
         </p>
         <p className="text-sm text-zinc-600 mt-2">
-          Feito com 💙 por um verdadeiro fã.
+          Feito com 💙 por mais um furioso.
         </p>
       </div>
 
