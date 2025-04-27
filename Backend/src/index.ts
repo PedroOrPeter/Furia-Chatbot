@@ -16,12 +16,20 @@ const allowedOrigins =  [
 const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
 app.use(
   cors({
-    origin: '*',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: allowedMethods,
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
 );
+app.use(cors());  // Permite todas as origens
+
 app.use(bodyParser.json());
 
 // Simulação de estatísticas manualmente
