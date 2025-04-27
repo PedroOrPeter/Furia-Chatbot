@@ -9,7 +9,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const allowedOrigins =  [
+  'https://furia-chatbot-rho.vercel.app',
+  'https://furia-chatbot-frontend-jade.vercel.app/',
+];
+const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: allowedMethods,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+);
 app.use(bodyParser.json());
 
 // Simulação de estatísticas manualmente
