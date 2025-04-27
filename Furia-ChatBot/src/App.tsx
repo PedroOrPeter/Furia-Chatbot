@@ -43,19 +43,24 @@ export default function App() {
       <Video />
       </section>
 
-      {/* Contato */}
-      {/* <section id="contato" className="py-16 px-4 text-center bg-black relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-30 bg-center bg-no-repeat bg-contain z-0"
-          style={{ backgroundImage: 'url(../furia_logo.png)' }}
-        />
-        <FormContato />
-      </section> */}
-
       {/* Documentação */}
       <section id="docs" className="bg-zinc-900 py-16 px-4 text-center">
         <h3 className="text-2xl font-bold mb-2">Documentação</h3>
         <p>Link para o README.md ou documentação do projeto.</p>
+        <div className="mt-4">
+          <iframe
+            src="/path/to/documentation.pdf"
+            className="w-full h-96 border-2 border-gray-700"
+            title="Documentação PDF"
+          />
+          <a
+            href="/path/to/documentation.pdf"
+            download="documentacao.pdf"
+            className="mt-4 inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Baixar PDF
+          </a>
+        </div>
       </section>
 
       {/* Footer */}

@@ -36,12 +36,6 @@ const Footer = () => {
         <h5 className="font-semibold mb-1">Links</h5>
         <ul className="text-sm">
           <li>
-            <a href="#home" className="hover:underline">Início</a>
-          </li>
-          <li>
-            <a href="#contato" className="hover:underline">Contato</a>
-          </li>
-          <li>
             <a href="https://github.com/PedroOrPeter/Furia-Chatbot" target="_blank" rel="noopener noreferrer" className="hover:underline">
               GitHub
             </a>

@@ -2,12 +2,10 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import fetch from "node-fetch";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 const allowedOrigins =  [
   'https://furia-chatbot-rho.vercel.app',
@@ -28,11 +26,9 @@ app.use(
     credentials: true,
   })
 );
-// app.use(cors());  // Permite todas as origens
 
 app.use(bodyParser.json());
 
-// Simulação de estatísticas manualmente
 const furiaStats = {
   victories: 25,
   defeats: 5,
@@ -94,7 +90,6 @@ app.post("/chat", async (req: Request, res: Response) => {
   const { message } = req.body;
 
   try {
-    // Buscar estatísticas atuais
     const statsResponse = await fetch("https://furia-chatbot-rho.vercel.app/stats", );
     const stats = await statsResponse.json() as typeof furiaStats;
 
@@ -146,16 +141,10 @@ app.post("/chat", async (req: Request, res: Response) => {
     const data = await response.json() as {
       choices?: { message?: { content?: string } }[];
     };
-    console.log(data);
     const reply = data.choices?.[0]?.message?.content || "Não consegui entender. Tenta de novo!";
     res.json({ reply });
   } catch (error) {
     console.error("Erro ao chamar a API:", error);
     res.status(500).json({ reply: "Ocorreu um erro ao processar sua pergunta. Tenta novamente mais tarde." });
   }
-});
-
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando: ${PORT}`);
 });
