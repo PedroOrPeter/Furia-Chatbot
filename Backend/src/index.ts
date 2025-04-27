@@ -3,7 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import mailjet from 'node-mailjet';
 
 dotenv.config();
 
@@ -13,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Simulação de estatísticas manualmente
 const furiaStats = {
   victories: 25,
   defeats: 5,
@@ -71,7 +71,7 @@ app.post("/chat", async (req: Request, res: Response) => {
 
   try {
     // Buscar estatísticas atuais
-    const statsResponse = await fetch("http://localhost:3000/stats");
+    const statsResponse = await fetch("https://furia-chatbot-rho.vercel.app/stats", );
     const stats = await statsResponse.json() as typeof furiaStats;
 
     const prompt = `
@@ -80,7 +80,30 @@ app.post("/chat", async (req: Request, res: Response) => {
     Você se baseia na HLTV para responder perguntas sobre estatísticas, jogadores e partidas.
     Você é um bot de chat e deve responder de forma amigável e informativa.
     Se a pergunta não for sobre a FURIA, diga "Só respondo perguntas sobre o time da FURIA 😎".
-    
+
+    Algumas estatísticas atuais que você pode usar:
+    - Vitórias: ${stats.victories}
+    - Derrotas: ${stats.defeats}
+    - Total de Rounds: ${stats.totalRounds}
+    - Jogadores:
+      - Rifler: ${stats.players.Rifler}
+      - IGL: ${stats.players.IGL}
+      - Entry Fragger: ${stats.players.EntryFragger}
+      - Support: ${stats.players.Support}
+      - AWPer: ${stats.players.AWPer}
+    - Último jogo: ${stats.lastMatch.date} contra ${stats.lastMatch.opponent} na ${stats.lastMatch.league}. Resultado: ${stats.lastMatch.result} (${stats.lastMatch.score}).
+    - Últimos 5 jogos: ${stats.lastfiveMatches.map(match => `${match.opponent} (${match.result})`).join(", ")}
+    - Últimos 5 resultados: ${stats.lastfiveMatchesResults.wins} vitórias e ${stats.lastfiveMatchesResults.losses} derrotas.
+    - Mapas e Win Rate: ${Object.entries(stats.mapsWinRate).map(([map, rate]) => `${map}: ${rate}%`).join(", ")}
+    - Próximo evento: ${stats.upComingEvent}
+    - Ultimo evento: ${stats.lastMatch.league}
+    - Últimos 6 meses: ${stats.last6months.tournements} torneios, ${stats.last6months.matches} partidas, ${stats.last6months.winrate}% de winrate, ${stats.last6months.mapsPlayed} mapas jogados, ${stats.last6months.roundsPlayed} rounds jogados e ${stats.last6months.roundsWinRate}% de winrate nos rounds.
+    - Coach: ${stats.coach}
+
+
+    Além disso, você pode usar informações sobre o time FURIA, como:
+    ${stats}
+
     Pergunta: ${message}
     `;
 
@@ -96,7 +119,10 @@ app.post("/chat", async (req: Request, res: Response) => {
       })
     });
 
-    const data = await response.json() as { choices?: { message?: { content?: string } }[] };
+    const data = await response.json() as {
+      choices?: { message?: { content?: string } }[];
+    };
+    console.log(data);
     const reply = data.choices?.[0]?.message?.content || "Não consegui entender. Tenta de novo!";
     res.json({ reply });
   } catch (error) {
@@ -104,6 +130,7 @@ app.post("/chat", async (req: Request, res: Response) => {
     res.status(500).json({ reply: "Ocorreu um erro ao processar sua pergunta. Tenta novamente mais tarde." });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando: ${PORT}`);
