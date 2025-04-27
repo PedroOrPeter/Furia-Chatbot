@@ -82,6 +82,10 @@ const furiaStats = {
   },
 };
 
+app.get("/", (req: Request, res: Response) => {
+  res.send("API do FURIA Chatbot está rodando!");
+});
+
 app.get("/stats", (req: Request, res: Response) => {
   res.json(furiaStats);
 });
