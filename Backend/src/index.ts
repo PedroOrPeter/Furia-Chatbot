@@ -9,26 +9,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// const allowedOrigins =  [
-//   'https://furia-chatbot-rho.vercel.app',
-//   'https://furia-chatbot-frontend-jade.vercel.app',
-// ];
-// const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     methods: allowedMethods,
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     credentials: true,
-//   })
-// );
-app.use(cors());  // Permite todas as origens
+const allowedOrigins =  [
+  'https://furia-chatbot-rho.vercel.app',
+  'https://furia-chatbot-frontend-jade.vercel.app',
+];
+const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: allowedMethods,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+);
+// app.use(cors());  // Permite todas as origens
 
 app.use(bodyParser.json());
 
@@ -91,9 +91,6 @@ app.get("/stats", (req: Request, res: Response) => {
 });
 
 app.post("/chat", async (req: Request, res: Response) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://furia-chatbot-frontend-jade.vercel.app');  // Substitua pela URL do seu frontend
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   const { message } = req.body;
 
   try {
