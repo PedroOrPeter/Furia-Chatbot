@@ -148,3 +148,5 @@ app.post("/chat", async (req: Request, res: Response) => {
     res.status(500).json({ reply: "Ocorreu um erro ao processar sua pergunta. Tenta novamente mais tarde." });
   }
 });
+
+export default app;
